@@ -24,11 +24,11 @@ function App() {
       </div>
       <div className="string-grid">
         <StringC tuningShift={4}/> 
-        <StringC tuningShift={11}/>
-        <StringC tuningShift={7}/>
-        <StringC tuningShift={2}/>
         <StringC tuningShift={9}/>
-        <StringC tuningShift={4}/>
+        <StringC tuningShift={2}/>
+        <StringC tuningShift={7}/>
+        <StringC tuningShift={11}/>
+        <StringC tuningShift={0}/>
       </div>
     </div>
   );

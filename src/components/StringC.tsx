@@ -7,7 +7,7 @@ interface stringProps{
 
 //index = the fret
 //element = the note name
-let fretArr: string[] = ['C', 'C#', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'Ab', 'A', 'Bb', 'B'];
+const fretArr: string[] = ['C', 'C#', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'Ab', 'A', 'Bb', 'B'];
 
 //receives a note name for the current sting and determines the fret number for it
 const getFretNum = (noteName: string) => {
@@ -22,23 +22,23 @@ const getNoteName = (fretNum: number) => {
 * returns a rotated version of the original chromatic C scale array
 * to be displayed. rotations determined by tuning set in parent componenet
 */
-function rotateStringArray(fretArr: string[], rotations: number): string[] {
-  return fretArr.slice(-rotations).concat(fretArr.slice(0, -rotations));
+function rotateStringArray(array: string[], rotations: number): string[] {
+  return array.slice(rotations).concat(array.slice(0, rotations % array.length));
 }
 
 function StringC(props: stringProps) {
-
-  fretArr=rotateStringArray(fretArr, props.tuningShift);
+  let fretArrTuned = fretArr;
+  fretArrTuned = rotateStringArray(fretArrTuned, props.tuningShift);
   //console.log("here");
   //console.log(fretArr);
 
   const handleClick = (noteName: string) => {
-   // console.log(`Clicked on ${noteName}`);
+    console.log(`Clicked on ${noteName}`);
   };
 
   return (
     <div className="button-row">
-      {fretArr.map((noteName) => (
+      {fretArrTuned.map((noteName) => (
         <button className="button" key={noteName} onClick={() => handleClick(noteName)}>
           {noteName}
         </button>
