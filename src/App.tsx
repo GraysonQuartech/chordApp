@@ -1,24 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
+import React from 'react';
+import './App.css';
+import StringC from './components/StringC'
+
+/*
+*this function is called when a user clicks a note.
+*/
+const noteSelected = () => {
+  console.log('note selected');
+}
+
+
+//each string component is passed the tuning / rotation of the scale
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="body">
+      <div className="final-chord">
+        C MAJ 7
+      </div>
+      <div>
+        TUNING: Standard
+      </div>
+      <div className="string-grid">
+        <StringC stringTuning={4}></StringC> 
+        <StringC stringTuning={11}></StringC>
+        <StringC stringTuning={7}></StringC>
+        <StringC stringTuning={2}></StringC>
+        <StringC stringTuning={9}></StringC>
+        <StringC stringTuning={4}></StringC>
+      </div>
     </div>
   );
 }
