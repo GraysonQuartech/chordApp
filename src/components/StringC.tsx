@@ -1,68 +1,38 @@
-
-
-/*
-APP sends the tuning for a string
-StringC receives tuning number
-StringC rotates the chromatic scale array to that number
-StringC displays each element of the array in a button
-*/
-
 import React from 'react';
 import './StringC.css';
 
-
 interface stringProps{
-  stringTuning: number;
+  tuningShift: number;
 }
 
 //index = the fret
 //element = the note name
-const stringArr: string[] = ['C', 'C#', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'Ab', 'A', 'Bb', 'B'];
+let fretArr: string[] = ['C', 'C#', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'Ab', 'A', 'Bb', 'B'];
 
-//receives an element and determines the fret number for it
+//receives a note name for the current sting and determines the fret number for it
 const getFretNum = (noteName: string) => {
-  return stringArr.indexOf(noteName);
+  return fretArr.indexOf(noteName);
 }
+//retrived the note name at a particular fret num for the current string
 const getNoteName = (fretNum: number) => {
-  return stringArr[fretNum];
-}
-
-const noteSelected = (rotation: number) => {
-  //console.log('note selected');
-  rotateStringArray(stringArr, rotation);
+  return fretArr[fretNum];
 }
 
 /*
 * returns a rotated version of the original chromatic C scale array
 * to be displayed. rotations determined by tuning set in parent componenet
 */
-function rotateStringArray(stringArr: string[], rotations: number): string[] {
-  const length = stringArr.length;
+function rotateStringArray(fretArr: string[], rotations: number): string[] {
+  const length = fretArr.length;
   const normalizedRotations = ((rotations % length) + length) % length;
-  //console.log([...stringArr.slice(normalizedRotations), ...stringArr.slice(0, normalizedRotations)]);
-  stringArr = [...stringArr.slice(normalizedRotations), ...stringArr.slice(0, normalizedRotations)];
-  //console.log(stringArr);
-  return stringArr;
+  return  [...fretArr.slice(normalizedRotations), ...fretArr.slice(0, normalizedRotations)];
 }
-
-
-/*
-* Retrieves note name to be displayed 
-* Depending on guitar tuning determined 
-* In parent componenet 
-* notes selected from 
-* C C# D Eb E F F# G Ab A Bb B
-* standard tuning:  4, 9, 2, 7, 11, 4
-*/
-
-//selected property for each element in the array. object array val and selected. 
-//display each element
 
 function StringC(props: stringProps) {
 
-  noteSelected(props.stringTuning);
-  console.log("here");
-  console.log(stringArr);
+  fretArr=rotateStringArray(fretArr, props.tuningShift);
+  //console.log("here");
+  //console.log(fretArr);
 
   const handleClick = (noteName: string) => {
    // console.log(`Clicked on ${noteName}`);
@@ -70,7 +40,7 @@ function StringC(props: stringProps) {
 
   return (
     <div className="button-row">
-      {stringArr.map((noteName) => (
+      {fretArr.map((noteName) => (
         <button className="button" key={noteName} onClick={() => handleClick(noteName)}>
           {noteName}
         </button>

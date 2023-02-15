@@ -3,6 +3,7 @@ import React from 'react';
 import './App.css';
 import StringC from './components/StringC'
 
+
 /*
 *this function is called when a user clicks a note.
 */
@@ -22,12 +23,12 @@ function App() {
         TUNING: Standard
       </div>
       <div className="string-grid">
-        <StringC stringTuning={4}></StringC> 
-        <StringC stringTuning={11}></StringC>
-        <StringC stringTuning={7}></StringC>
-        <StringC stringTuning={2}></StringC>
-        <StringC stringTuning={9}></StringC>
-        <StringC stringTuning={4}></StringC>
+        <StringC tuningShift={4}/> 
+        <StringC tuningShift={11}/>
+        <StringC tuningShift={7}/>
+        <StringC tuningShift={2}/>
+        <StringC tuningShift={9}/>
+        <StringC tuningShift={4}/>
       </div>
     </div>
   );
