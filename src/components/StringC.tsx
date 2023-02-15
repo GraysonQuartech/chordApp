@@ -40,9 +40,11 @@ function rotateStringArray(stringArr: string[], rotations: number): string[] {
   const length = stringArr.length;
   const normalizedRotations = ((rotations % length) + length) % length;
   //console.log([...stringArr.slice(normalizedRotations), ...stringArr.slice(0, normalizedRotations)]);
-  return [...stringArr.slice(normalizedRotations), ...stringArr.slice(0, normalizedRotations)];
+  stringArr = [...stringArr.slice(normalizedRotations), ...stringArr.slice(0, normalizedRotations)];
+  console.log(stringArr);
+  return stringArr;
 }
-console.log(stringArr);
+
 
 /*
 * Retrieves note name to be displayed 
@@ -52,25 +54,25 @@ console.log(stringArr);
 * C C# D Eb E F F# G Ab A Bb B
 * standard tuning:  4, 9, 2, 7, 11, 4
 */
-noteSelected(4);
+
 //selected property for each element in the array. object array val and selected. 
 //display each element
 
 function StringC(props: stringProps) {
+
+  noteSelected(props.stringTuning);
+
+  const handleClick = (noteName: string) => {
+    console.log(`Clicked on ${noteName}`);
+  };
+
   return (
     <div className="button-row">
-      <button className="button" onClick={()=>noteSelected(props.stringTuning)}>C</button> 
-      <button className="button" ></button>
-      <button className="button" ></button>
-      <button className="button" ></button>
-      <button className="button" ></button>
-      <button className="button" ></button>
-      <button className="button" ></button>
-      <button className="button" ></button>
-      <button className="button" ></button>
-      <button className="button" ></button>
-      <button className="button" ></button>
-      <button className="button" ></button>
+      {stringArr.map((noteName) => (
+        <button className="button" key={noteName} onClick={() => handleClick(noteName)}>
+          {noteName}
+        </button>
+      ))}
     </div>
   );
 }
