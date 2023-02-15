@@ -23,9 +23,7 @@ const getNoteName = (fretNum: number) => {
 * to be displayed. rotations determined by tuning set in parent componenet
 */
 function rotateStringArray(fretArr: string[], rotations: number): string[] {
-  const length = fretArr.length;
-  const normalizedRotations = ((rotations % length) + length) % length;
-  return  [...fretArr.slice(normalizedRotations), ...fretArr.slice(0, normalizedRotations)];
+  return fretArr.slice(-rotations).concat(fretArr.slice(0, -rotations));
 }
 
 function StringC(props: stringProps) {
