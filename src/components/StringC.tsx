@@ -28,7 +28,7 @@ const getNoteName = (fretNum: number) => {
 }
 
 const noteSelected = (rotation: number) => {
-  console.log('note selected');
+  //console.log('note selected');
   rotateStringArray(stringArr, rotation);
 }
 
@@ -41,7 +41,7 @@ function rotateStringArray(stringArr: string[], rotations: number): string[] {
   const normalizedRotations = ((rotations % length) + length) % length;
   //console.log([...stringArr.slice(normalizedRotations), ...stringArr.slice(0, normalizedRotations)]);
   stringArr = [...stringArr.slice(normalizedRotations), ...stringArr.slice(0, normalizedRotations)];
-  console.log(stringArr);
+  //console.log(stringArr);
   return stringArr;
 }
 
@@ -61,9 +61,11 @@ function rotateStringArray(stringArr: string[], rotations: number): string[] {
 function StringC(props: stringProps) {
 
   noteSelected(props.stringTuning);
+  console.log("here");
+  console.log(stringArr);
 
   const handleClick = (noteName: string) => {
-    console.log(`Clicked on ${noteName}`);
+   // console.log(`Clicked on ${noteName}`);
   };
 
   return (
