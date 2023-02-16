@@ -7,9 +7,8 @@ import React from 'react';
 import './Tuning.css';
 
 interface tuningProps{
-    tuningID: string;
+    tuningID: number;
 }
-
 interface tunings {
     standardTuning: number[];
     dropDTuning: number[];
@@ -21,6 +20,19 @@ const tunings: tunings = {
     openCTuning: [0, 7, 0, 7, 0, 4]
 };
 
+//takes ID and returns the tuning name
+//that corresponds to that ID  
+const idToString = (id: number) => {
+    if(id===0){
+        return "STANDARD";
+    }
+    else if (id === 1){
+        return "DROP D";
+    }
+    else{
+        return "OPEN C";
+    }
+}
 
 
 function Tuning(props: tuningProps) {
@@ -29,7 +41,7 @@ function Tuning(props: tuningProps) {
     //};
 
     return (
-        <button className="tuning-option">{props.tuningID}</button>
+        <button className="tuning-option">{idToString(props.tuningID)}</button>
     );
 }
   

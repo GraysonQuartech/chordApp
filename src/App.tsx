@@ -34,9 +34,9 @@ function App() {
         C MAJ 7
       </div>
       <div className="tuning-grid">
-        <Tuning tuningID={"STANDARD"}/>
-        <Tuning tuningID={"DROP D"}/>
-        <Tuning tuningID={"OPEN C"}/>
+        <Tuning tuningID={0}/>
+        <Tuning tuningID={1}/>
+        <Tuning tuningID={2}/>
       </div>
       <div className="string-grid">
         <StringC tuningShift={3}/>
