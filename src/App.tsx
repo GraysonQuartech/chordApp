@@ -6,28 +6,21 @@ import './App.css';
 import StringC from './components/StringC'
 import Tuning from './components/Tuning'
 
-interface tunings {
-  standardTuning: number[];
-  dropDTuning: number[];
-  openCTuning: number[];
-}
+let tuningArr: number[] = [0,0,0,0,0,0];
 
-
-//gets called when a tuning is clicked
-//should send the correct arry values back to parent
+//receives the tuning array from tuning component
 const handleTuningClick = (tuning: number[]) => {
-  console.log("event handler callled");
-  //set the tuning mode
-  console.log(tuning);
+  tuningArr = tuning;
+  console.log(tuningArr);
 };
 
-//each string component is passed the tuning / rotation of the scale
+
 function App() {
 
   return (
     <div className="body">
       <div className="final-chord">
-        C MAJ 7
+        GUITAR CHORD FINDER
       </div>
       <div className="tuning-grid">
         <Tuning onClick={(tuning: number[])=>handleTuningClick(tuning)} tuningID={0}/>
@@ -35,7 +28,12 @@ function App() {
         <Tuning onClick={(tuning: number[])=>handleTuningClick(tuning)} tuningID={2}/>
       </div>
       <div className="string-grid">
-        <StringC tuningShift={3}/>
+        <StringC tuningShift={tuningArr[0]}/>
+        <StringC tuningShift={tuningArr[1]}/>
+        <StringC tuningShift={tuningArr[2]}/>
+        <StringC tuningShift={tuningArr[3]}/>
+        <StringC tuningShift={tuningArr[4]}/>
+        <StringC tuningShift={tuningArr[5]}/>
       </div>
     </div>
   );

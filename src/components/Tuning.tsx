@@ -38,7 +38,7 @@ const idToString = (tuningID: number) => {
 //takes an ID and returns the array that 
 //holds all the string tunings
 const idToTuningArr = (tuningID: number) => {
-    if(tuningID==-0){
+    if(tuningID===0){
         return tunings.standardTuning;
     }
     else if (tuningID === 1){
