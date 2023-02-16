@@ -1,6 +1,7 @@
 
 .body {
   text-align: center;
+  background-color: rgb(1, 1, 25);
 }
 
 .final-chord {
@@ -9,6 +10,15 @@
   color: white;
   padding: 5px;
   font-size: x-large;
+}
+
+.tuning-grid {
+  margin-top: 5px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.tuning-option {
+  display: inline-block;
 }
 
 .string-grid {
