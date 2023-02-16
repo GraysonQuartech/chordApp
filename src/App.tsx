@@ -13,20 +13,16 @@ interface tunings {
 }
 
 
-/*
-*this function is called when a user clicks a note.
-*/
-//const noteSelected = () => {
-//  console.log('note selected');
-//}
+//gets called when a tuning is clicked
+//should send the correct arry values back to parent
+const handleTuningClick = (tuning: number[]) => {
+  console.log("event handler callled");
+  //set the tuning mode
+  console.log(tuning);
+};
 
 //each string component is passed the tuning / rotation of the scale
 function App() {
-
-  const [arrayFromChild, setArrayFromChild] = useState<number[]>([]);
-  const handleArrayFromChild = (numberArray: number[]) => {
-    setArrayFromChild(numberArray);
-  };
 
   return (
     <div className="body">
@@ -34,16 +30,12 @@ function App() {
         C MAJ 7
       </div>
       <div className="tuning-grid">
-        <Tuning tuningID={0}/>
-        <Tuning tuningID={1}/>
-        <Tuning tuningID={2}/>
+        <Tuning onClick={(tuning: number[])=>handleTuningClick(tuning)} tuningID={0}/>
+        <Tuning onClick={(tuning: number[])=>handleTuningClick(tuning)} tuningID={1}/>
+        <Tuning onClick={(tuning: number[])=>handleTuningClick(tuning)} tuningID={2}/>
       </div>
       <div className="string-grid">
         <StringC tuningShift={3}/>
-        <StringC tuningShift={4}/>
-        <StringC tuningShift={1}/>
-        <StringC tuningShift={5}/>
-        <StringC tuningShift={5}/>
       </div>
     </div>
   );

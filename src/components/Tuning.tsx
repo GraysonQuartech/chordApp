@@ -8,6 +8,7 @@ import './Tuning.css';
 
 interface tuningProps{
     tuningID: number;
+    onClick: (tuning :number[])=> void; 
 }
 interface tunings {
     standardTuning: number[];
@@ -22,11 +23,11 @@ const tunings: tunings = {
 
 //takes ID and returns the tuning name
 //that corresponds to that ID  
-const idToString = (id: number) => {
-    if(id===0){
+const idToString = (tuningID: number) => {
+    if(tuningID===0){
         return "STANDARD";
     }
-    else if (id === 1){
+    else if (tuningID === 1){
         return "DROP D";
     }
     else{
@@ -34,14 +35,36 @@ const idToString = (id: number) => {
     }
 }
 
+//takes an ID and returns the array that 
+//holds all the string tunings
+const idToTuningArr = (tuningID: number) => {
+    if(tuningID==-0){
+        return tunings.standardTuning;
+    }
+    else if (tuningID === 1){
+        return tunings.dropDTuning;
+    }
+    else{
+        return tunings.openCTuning;
+    } 
+}
+
+//gets called when a tuning is clicked
+//should send the correct arry values back to parent
+const handleTuningClick = (tuningID: number) => {
+
+    console.log(tuningID);
+};
 
 function Tuning(props: tuningProps) {
-    //const handleClick = () => {
-    //    props.onArrayFromChild(tunings.standardTuning);
-    //};
 
     return (
-        <button className="tuning-option">{idToString(props.tuningID)}</button>
+        <button 
+            className="tuning-option" 
+            onClick={()=>props.onClick(idToTuningArr(props.tuningID))}
+        >
+            {idToString(props.tuningID)}
+        </button>
     );
 }
   
