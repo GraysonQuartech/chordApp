@@ -16,9 +16,9 @@ interface tunings {
     openCTuning: number[];
 }
 const tunings: tunings = {
-    standardTuning: [4, 9, 2, 7, 11, 4],
-    dropDTuning: [2, 9, 2, 7, 11, 4],
-    openCTuning: [0, 7, 0, 7, 0, 4]
+    standardTuning: [4, 11, 7, 2, 9, 4],
+    dropDTuning: [4, 11, 7, 2, 9, 2],
+    openCTuning: [4, 0, 7, 0, 7, 0]
 };
 
 //takes ID and returns the tuning name

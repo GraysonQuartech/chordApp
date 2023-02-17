@@ -1,7 +1,7 @@
 
 .body {
   text-align: center;
-  background-color: rgb(1, 1, 25);
+  background-color: rgb(0, 0, 2);
 }
 
 .final-chord {
@@ -17,11 +17,21 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 }
-.tuning-option {
-  display: inline-block;
-}
 
 .string-grid {
+  top: 65px;
+  position: absolute;
   display: grid;
   grid-template-columns: 1fr;
 }
+
+.fretboardContainer {
+  position: relative;
+}
+
+.fretImage {
+  width: 95%;
+}
+
+
+
