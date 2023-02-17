@@ -12,14 +12,20 @@ import myImage from './images/fretboard.png';
 function App() {
 
   const [tuningArr, setTuningArr] = useState<number[]>([4, 11, 7, 2, 9, 4]);
-
   //receives the tuning array from tuning component
   const handleTuningClick = (tuning: number[]) => {
     setTuningArr(tuning);
   };
+
+  
+  const [chordArr, setMyArray] = useState<string[]>(['','','','','','']);
   //receives the note clicked from string componenet
-  const handleNoteClick = (note: string) => {
-    console.log(note);
+  const handleNoteClick = (note: string, stringNum: number) => {
+    setMyArray(chordArr => {
+      const newArray = [...chordArr];
+      newArray[stringNum] = note;
+      return newArray;
+    });
   };
 
   return (
@@ -46,29 +52,32 @@ function App() {
         <div className="string-grid">
           <StringC 
             tuningShift={tuningArr[0]}
-            onClick={(note: string)=>handleNoteClick(note)} 
+            onClick={(note: string)=>handleNoteClick(note, 0)} 
           />
           <StringC 
             tuningShift={tuningArr[1]}  
-            onClick={(note: string)=>handleNoteClick(note)} 
+            onClick={(note: string)=>handleNoteClick(note, 1)} 
           />
           <StringC 
             tuningShift={tuningArr[2]}  
-            onClick={(note: string)=>handleNoteClick(note)} 
+            onClick={(note: string)=>handleNoteClick(note, 2)} 
           />
           <StringC 
             tuningShift={tuningArr[3]} 
-            onClick={(note: string)=>handleNoteClick(note)} 
+            onClick={(note: string)=>handleNoteClick(note, 3)} 
           />
           <StringC 
             tuningShift={tuningArr[4]}  
-            onClick={(note: string)=>handleNoteClick(note)} 
+            onClick={(note: string)=>handleNoteClick(note, 4)} 
           />
           <StringC 
             tuningShift={tuningArr[5]}  
-            onClick={(note: string)=>handleNoteClick(note)} 
+            onClick={(note: string)=>handleNoteClick(note, 5)} 
           />
         </div>
+      </div>
+      <div className="displayNotes">
+        {chordArr}
       </div>
     </div>
   );
