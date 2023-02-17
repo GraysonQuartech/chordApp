@@ -4,7 +4,6 @@
 //2. return the array to parent
 
 import React from "react";
-import { tunings } from "../constants/constants";
 import "./Tuning.css";
 
 interface tuningProps {
@@ -15,39 +14,12 @@ interface tuningProps {
 //takes ID and returns the tuning name
 //that corresponds to that ID
 const idToString = (tuningID: number) => {
-  if (tuningID === 0) {
-    return "STANDARD";
-  } else if (tuningID === 1) {
-    return "DROP D";
-  } else {
-    return "OPEN C";
-  }
-};
-
-//takes an ID and returns the array that
-//holds all the string tunings
-const idToTuningArr = (tuningID: number) => {
-  if (tuningID === 0) {
-    return tunings.standardTuning;
-  } else if (tuningID === 1) {
-    return tunings.dropDTuning;
-  } else {
-    return tunings.openCTuning;
-  }
-};
-
-//gets called when a tuning is clicked
-//should send the correct arry values back to parent
-const handleTuningClick = (tuningID: number) => {
-  console.log(tuningID);
+  return tuningID === 0 ? "STANDARD" : tuningID === 1 ? "DROP D" : "OPEN C";
 };
 
 function Tuning(props: tuningProps) {
   return (
-    <button
-      className="tuning-option"
-      onClick={() => props.onClick(idToTuningArr(props.tuningID))}
-    >
+    <button className="tuning-option" onClick={() => props.onClick}>
       {idToString(props.tuningID)}
     </button>
   );
