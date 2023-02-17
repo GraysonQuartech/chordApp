@@ -3,25 +3,3 @@
   text-align: center;
   background-color: rgb(1, 1, 25);
 }
-
-.final-chord {
-  display: inline-block;
-  background-color: rgb(41, 12, 5);
-  color: white;
-  padding: 5px;
-  font-size: x-large;
-}
-
-.tuning-grid {
-  margin-top: 5px;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-}
-.tuning-option {
-  display: inline-block;
-}
-
-.string-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-}
