@@ -6,16 +6,15 @@ import './App.css';
 import StringC from './components/StringC'
 import Tuning from './components/Tuning'
 
-let tuningArr: number[] = [0,0,0,0,0,0];
-
-//receives the tuning array from tuning component
-const handleTuningClick = (tuning: number[]) => {
-  tuningArr = tuning;
-  console.log(tuningArr);
-};
-
 
 function App() {
+
+  const [tuningArr, setTuningArr] = useState<number[]>([4, 9, 2, 7, 11, 4]);
+
+  //receives the tuning array from tuning component
+  const handleTuningClick = (tuning: number[]) => {
+    setTuningArr(tuning);
+  };
 
   return (
     <div className="body">
