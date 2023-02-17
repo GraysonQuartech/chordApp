@@ -1,26 +1,9 @@
 import React from "react";
 import "./StringC.css";
-
+import { fretArr } from "../constants/constants";
 interface stringProps {
   tuningShift: number;
 }
-
-//index = the fret
-//element = the note name   0    1     2    3     4    5    6     7    8     9    10    11
-const fretArr: string[] = [
-  "C",
-  "C#",
-  "D",
-  "Eb",
-  "E",
-  "F",
-  "F#",
-  "G",
-  "Ab",
-  "A",
-  "Bb",
-  "B",
-];
 
 //receives a note name for the current sting and determines the fret number for it
 const getFretNum = (noteName: string) => {
