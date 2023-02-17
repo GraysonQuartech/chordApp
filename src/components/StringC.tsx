@@ -3,6 +3,7 @@ import './StringC.css';
 
 interface stringProps{
   tuningShift: number;
+  onClick: (note: string) => void; 
 }
 
 //index = the fret
@@ -32,14 +33,10 @@ function StringC(props: stringProps) {
   //console.log("here");
   //console.log(fretArr);
 
-  const handleClick = (noteName: string) => {
-    console.log(`Clicked on ${noteName}`);
-  };
-
   return (
     <div className="button-row">
       {fretArrTuned.map((noteName) => (
-        <button className="button" key={noteName} onClick={() => handleClick(noteName)}>
+        <button className="button" key={noteName} onClick={() => props.onClick(noteName)}>
           {noteName}
         </button>
       ))}
