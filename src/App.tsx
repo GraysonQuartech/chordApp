@@ -23,7 +23,12 @@ function App() {
   const handleNoteClick = (note: string, stringNum: number) => {
     setMyArray(chordArr => {
       const newArray = [...chordArr];
-      newArray[stringNum] = note;
+      if(5-stringNum<5){
+        newArray[5-stringNum] = note+', ';
+      }
+      else{
+        newArray[5-stringNum] = note;
+      }
       return newArray;
     });
   };
