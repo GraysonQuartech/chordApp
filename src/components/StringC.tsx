@@ -10,22 +10,8 @@ interface stringProps{
 //index = the fret
 //element = the note name   0    1     2    3     4    5    6     7    8     9    10    11
 const fretArr: string[] = ['C', 'C#', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'Ab', 'A', 'Bb', 'B'];
+const fretArrSel: number[] = [0, 0,    0,    0,   0,   0,   0,    0,   0,    0,    0,   0];
 const noteButtonColor: string[] = ['black', 'green'];
-
-//receives a note name for the current sting and determines the fret number for it
-const getFretNum = (noteName: string) => {
-  return fretArr.indexOf(noteName);
-}
-
-
-//gets called when a note button is clicked
-//is responsible to toggling off the last note
-//on the same string, and toggling on the new note
-const swapSelectedNote = (noteName: string) => {
-  const fretNum = getFretNum(noteName);
- // selected=1;
-}
-
 
 /*
 * returns a rotated version of the original chromatic C scale array
@@ -40,19 +26,35 @@ function StringC(props: stringProps) {
   let fretArrTuned = fretArr;
   fretArrTuned = rotateStringArray(fretArrTuned, props.tuningShift);
 
-  const [selected, setSelected] = useState(false);
+  //receives a note name for the current sting 
+  //and determines the fret number for it
+  const getFretNum = (noteName: string) => {
+    return fretArrTuned.indexOf(noteName);
+  }
+
+  const [selected, setSelected] = useState(fretArrSel);
+  //is responsible to toggling off the last note
+  //on the same string, and toggling on the new note
+  const swapSelectedNote = (noteName: string) => {
+    const fretNum = getFretNum(noteName);
+    //loop through and reset all to 0
+    for(let i=0; i<fretArrTuned.length; i++){
+      fretArrSel[i]=0;
+    }
+    fretArrSel[fretNum]=1;
+    setSelected(fretArrSel);
+  }
 
   return (
     <div className="button-row">
       {fretArrTuned.map((noteName) => (
         <button 
-          style = {selected ? { backgroundColor: 'green' } : { backgroundColor: 'black' }}
+          style = {selected[getFretNum(noteName)] ? { backgroundColor: 'green' } : { backgroundColor: 'black' }}
           className="button" 
           key={noteName} 
           onClick={() => {
             props.onClick(noteName)
-           // swapSelectedNote(noteName);
-            setSelected(!selected);
+            swapSelectedNote(noteName);
           }}
           
         >
