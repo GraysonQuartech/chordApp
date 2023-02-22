@@ -27,5 +27,5 @@
 }
 
 .button:clicked {
-  background-color: blue;
+  background-color: rgb(30, 30, 62);
 }
