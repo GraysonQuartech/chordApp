@@ -1,53 +1,49 @@
 
-import React from 'react';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-
+import React, { useEffect } from 'react';
+import { useState} from 'react';
 import './App.css';
 import StringC from './components/StringC'
 import Tuning from './components/Tuning'
-
+import type {Note} from './components/StringC'
 import myImage from './images/fretboard.png';
 
+//Creates object type noteFretString template
+export type noteFretString = {
+  noteName: Note;
+  fretNum: number;
+  stringNum: number;   
+}
 
+
+
+//main component function
 function App() {
 
+  const [noteFretString, setNFS] = useState<noteFretString>();
   const [tuningArr, setTuningArr] = useState<number[]>([4, 11, 7, 2, 9, 4]);
+     
+  // const [nFSArray, setString] = useState<null>(null); //this useState gets triggered from stringupdate
+
   //receives the tuning array from tuning component
   const handleTuningClick = (tuning: number[]) => {
     setTuningArr(tuning);
   };
 
-  //handler function for API/display
-  
-  const [chordArr, setMyArray] = useState<string[]>(['','','','','','']);
-  //receives the note clicked from string componenet
-  const handleNoteClick = (note: string, stringNum: number, fretNum: number) => {
+  //storing each string in an array here, and update the array every time a string/note is updated
+  //display that
+  //call an API with that data, and display the return
+  //useEffect()
 
-    //1create an object type that controns note,string,fret 
-       //create empty array 
-    //when u click a note, add an object of that type, 
-      //to an array in the parent componenet
+
+  //receives the note clicked from string componenet. ie this function called when note clicked
+  //creates and pushes new instance of stringFretNum object to the arr at string
+  //const handleNFSArray = (noteName: Note, stringNum: number, fretNum: number) => {
+    
+    //nFSArray[stringNum] = {noteName, stringNum, fretNum}; 
+
     //1. pass chordArr and setMyarray to child Note component, and set state
-    //OR
-    //2. create a CONTEXT that wraps around child components that provides state of the chordArr object 
+  //};
 
-    //create helper function that takes a parameter of that object 
-    //
-
-    /*
-    setMyArray(chordArr => {
-      const newArray = [...chordArr];
-      if(5-stringNum<5){
-        newArray[5-stringNum] = note+', ';
-      }
-      else{
-        newArray[5-stringNum] = note;
-      }
-      return newArray;
-    });
-    */
-  };
 
   return (
     <div className="body">
@@ -74,13 +70,14 @@ function App() {
           {tuningArr.map((noteName, index)=>{
             return <StringC 
               tuningShift={noteName}
-              onClick={(note: string, fretNum: number)=>handleNoteClick(note, index, fretNum)}  
+              stringNum={index}
+              setNFSCall={setNFS}
             />
           })}
         </div>
       </div>
       <div className="displayNotes">
-        {chordArr}
+        'spell chord here..'
       </div>
     </div>
   );
