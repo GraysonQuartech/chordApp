@@ -1,75 +1,122 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './StringC.css';
 import { useState } from 'react';
+import Note from './NoteC';
+
+//1 note per string
+//gather notes across all strings into an array
+//need to hold the state of the selected note
+
+//pass color from string to note
+
 
 interface stringProps{
   tuningShift: number;
-  onClick: (note: string) => void; 
+  onClick: (note: string, fretNum: number) => void; 
 }
+
+export type Note = 'C'|'C#'|'D'|'Eb'|'E'| 'F'| 'F#'| 'G'| 'Ab'| 'A'| 'Bb'| 'B' ; 
+//const a: Note = 'C' example of how to set
 
 //index = the fret
 //element = the note name   0    1     2    3     4    5    6     7    8     9    10    11
-const fretArr: string[] = ['C', 'C#', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'Ab', 'A', 'Bb', 'B'];
-const fretArrSel: number[] = [0, 0,    0,    0,   0,   0,   0,    0,   0,    0,    0,   0];
+const fretArr: Note[] = ['C', 'C#', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'Ab', 'A', 'Bb', 'B'];
 const noteButtonColor: string[] = ['black', 'green'];
 
 /*
 * returns a rotated version of the original chromatic C scale array
 * to be displayed. rotations determined by tuning set in parent componenet
 */
-function rotateStringArray(array: string[], rotations: number): string[] {
+function rotateStringArray(array: Note[], rotations: number): Note[] {
   return array.slice(rotations).concat(array.slice(0, rotations % array.length));
 }
 
 function StringC(props: stringProps) {
   
+  const [note, setNote] = useState<Note|null>(null);
+  useEffect(() => {
+    console.log(note);
+  }, [note])
+
   let fretArrTuned = fretArr;
   fretArrTuned = rotateStringArray(fretArrTuned, props.tuningShift);
 
-  //receives a note name for the current sting 
-  //and determines the fret number for it
-  const getFretNum = (noteName: string) => {
+  const getFretNum = (noteName: Note) => {
     return fretArrTuned.indexOf(noteName);
   }
 
-  const [selected, setSelected] = useState(fretArrSel);
-  //is responsible to toggling off the last note
-  //on the same string, and toggling on the new note
-  const swapSelectedNote = (noteName: string) => {
-    const fretNum = getFretNum(noteName);
-    //loop through and reset all to 0
-    for(let i=0; i<fretArrTuned.length; i++){
-      fretArrSel[i]=0;
-    }
-    fretArrSel[fretNum]=1;
-    setSelected(fretArrSel);
-  }
+//create a context 
+//   alternative to passing props through all 
+//   
 
   return (
-    <div className="button-row">
-      {fretArrTuned.map((noteName) => (
-        <button 
-          style = {selected[getFretNum(noteName)] ? { backgroundColor: 'green' } : { backgroundColor: 'black' }}
-          className="button" 
-          key={noteName} 
-          onClick={() => {
-            props.onClick(noteName)
-            swapSelectedNote(noteName);
-          }}
-          
-        >
-          {noteName}
-        </button>
-      ))}
+    <div>
+      <div className="button-row">
+        {fretArrTuned.map((noteName)=>{
+          return  <Note 
+            noteName={noteName} 
+            color= {note=== noteName ? "green" : "black"}
+            setNote={setNote}
+          />;
+        })}
+      </div>
+    <p>{note}</p>
     </div>
   );
 }
 
 export default StringC;
 
-
-
-
+/*
+<Note
+noteName={fretArrTuned[0]}
+color = "black"
+/>
+<Note
+noteName={fretArrTuned[1]}
+color = "black"
+/>
+<Note
+noteName={fretArrTuned[2]}
+color = "black"
+/>
+<Note
+noteName={fretArrTuned[3]}
+color = "black"
+/>
+<Note
+noteName={fretArrTuned[4]}
+color = "black"
+/>
+<Note
+noteName={fretArrTuned[5]}
+color = "black"
+/>
+<Note
+noteName={fretArrTuned[6]}
+color = "black"
+/>
+<Note
+noteName={fretArrTuned[7]}
+color = "black"
+/>
+<Note
+noteName={fretArrTuned[8]}
+color = "black"
+/>
+<Note
+noteName={fretArrTuned[9]}
+color = "black"
+/>
+<Note
+noteName={fretArrTuned[10]}
+color = "black"
+/>
+<Note
+noteName={fretArrTuned[11]}
+color = "black"
+/>  
+*/
 
 
 

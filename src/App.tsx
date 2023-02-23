@@ -18,10 +18,24 @@ function App() {
     setTuningArr(tuning);
   };
 
+  //handler function for API/display
   
   const [chordArr, setMyArray] = useState<string[]>(['','','','','','']);
   //receives the note clicked from string componenet
-  const handleNoteClick = (note: string, stringNum: number) => {
+  const handleNoteClick = (note: string, stringNum: number, fretNum: number) => {
+
+    //1create an object type that controns note,string,fret 
+       //create empty array 
+    //when u click a note, add an object of that type, 
+      //to an array in the parent componenet
+    //1. pass chordArr and setMyarray to child Note component, and set state
+    //OR
+    //2. create a CONTEXT that wraps around child components that provides state of the chordArr object 
+
+    //create helper function that takes a parameter of that object 
+    //
+
+    /*
     setMyArray(chordArr => {
       const newArray = [...chordArr];
       if(5-stringNum<5){
@@ -32,6 +46,7 @@ function App() {
       }
       return newArray;
     });
+    */
   };
 
   return (
@@ -56,30 +71,12 @@ function App() {
       <div className="fretBoardContainer">
         <img className="fretImage" src={myImage} alt="Image" />
         <div className="string-grid">
-          <StringC 
-            tuningShift={tuningArr[0]}
-            onClick={(note: string)=>handleNoteClick(note, 0)} 
-          />
-          <StringC 
-            tuningShift={tuningArr[1]}  
-            onClick={(note: string)=>handleNoteClick(note, 1)} 
-          />
-          <StringC 
-            tuningShift={tuningArr[2]}  
-            onClick={(note: string)=>handleNoteClick(note, 2)} 
-          />
-          <StringC 
-            tuningShift={tuningArr[3]} 
-            onClick={(note: string)=>handleNoteClick(note, 3)} 
-          />
-          <StringC 
-            tuningShift={tuningArr[4]}  
-            onClick={(note: string)=>handleNoteClick(note, 4)} 
-          />
-          <StringC 
-            tuningShift={tuningArr[5]}  
-            onClick={(note: string)=>handleNoteClick(note, 5)} 
-          />
+          {tuningArr.map((noteName, index)=>{
+            return <StringC 
+              tuningShift={noteName}
+              onClick={(note: string, fretNum: number)=>handleNoteClick(note, index, fretNum)}  
+            />
+          })}
         </div>
       </div>
       <div className="displayNotes">
