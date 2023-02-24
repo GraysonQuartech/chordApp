@@ -55,19 +55,62 @@ function App() {
     }
     //replace all instances of '#' with '%23'
     apiString = apiString.replace(/#/g, "%23");
-    console.log(apiString);
     return apiString;
   };
 
-  const getChord = () => {
+  /*
+   *Sends the API the chord notes and receives all the chords that contain those notes
+   */
+  const getChordsScales = () => {
+    let parsedResponse = [];
+
     axios
       .get(
         "http://www.tofret.com/reverse-chord-finder.php?return-type=json&notes=" +
           formatAPIreq(nFSArr)
       )
       .then((response) => {
-        console.log(response);
+        parsedResponse = JSON.parse(response.request.responseText);
+        //console.log(parsedResponse);
+        console.log(parsedResponse);
+
+        for (const [chordName, chordData] of Object.entries(
+          parsedResponse.chords
+        )) {
+          //for (const [voicingName, voicingNotes] of Object.entries(chordData)) {
+          //  console.log(voicingNotes);
+          //console.log(voicing, voicingNotes);
+          //}
+          console.log(chordData);
+        }
       });
+  };
+
+  //receives a string and removes duplicates from it
+  //maintains initial order.. LOL becomes LO
+  const removeDuplicates = (str: string): string => {
+    const uniqueChars = new Set<string>();
+    let result = "";
+    for (const char of str) {
+      if (char === " " || !uniqueChars.has(char)) {
+        uniqueChars.add(char);
+        result += char;
+      }
+    }
+    return result;
+  };
+
+  //converts to notes to string.
+  const convertNotesToString = (NFSarr: noteFretString[]) => {
+    const arr = NFSarr.slice().reverse();
+    let noteString = "";
+    for (let i = 0; i < arr.length; i++) {
+      noteString += arr[i].noteName;
+      //if (arr[i].noteName != "") {
+      noteString += " ";
+      // }
+    }
+    return noteString;
   };
 
   /*
@@ -83,9 +126,10 @@ function App() {
         noteString += ", ";
       }
     }
-    console.log(noteString);
     return noteString;
   };
+
+  console.log(removeDuplicates(convertNotesToString(nFSArr)));
 
   return (
     <div className="body">
@@ -120,7 +164,7 @@ function App() {
       </div>
       <div className="displayNotes">{displayNotes(nFSArr)}</div>
       <div className="displayNotes">{formatAPIreq(nFSArr)}</div>
-      <button onClick={getChord}>GET CHORD</button>
+      <button onClick={getChordsScales}>GET CHORD</button>
     </div>
   );
 }
