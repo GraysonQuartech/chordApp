@@ -36,8 +36,26 @@ function App() {
   };
 
   //returns a string with the correct format for the API
-  const formatAPIreq = (arr: noteFretString[]) => {
-    //if # change to
+  /*
+  To get the chords and scales for the notes:
+  A F# Eb
+  urlencode() your notes so they become:
+  A+F%23+Eb
+  */
+  const formatAPIreq = (NFSarr: noteFretString[]) => {
+    const arr = NFSarr.slice().reverse();
+    let apiString = "";
+    //loop through and update characters and assign them to string
+    for (let i = 0; i < arr.length; i++) {
+      apiString += arr[i].noteName;
+      if (arr[i].noteName != "" && i < arr.length - 1) {
+        apiString += "+";
+      }
+    }
+    //replace all instances of '#' with '%23'
+    apiString = apiString.replace(/#/g, "%23");
+    console.log(apiString);
+    return apiString;
   };
 
   /*
@@ -89,6 +107,7 @@ function App() {
         </div>
       </div>
       <div className="displayNotes">{displayNotes(nFSArr)}</div>
+      <div className="displayNotes">{formatAPIreq(nFSArr)}</div>
     </div>
   );
 }

@@ -67,12 +67,11 @@ function StringC(props: stringProps) {
     return fretArrTuned.indexOf(noteName);
   };
 
+  //this useState gets triggered from NoteC on click.
+  const [note, setNote] = useState<NoteType>();
   const setReceivedNote = (receivedNote: NoteType) => {
     setNote(receivedNote);
   };
-
-  //this useState gets triggered from NoteC on click.
-  const [note, setNote] = useState<NoteType>();
 
   //gets triggered when note updated, and passes data up to useState in APP
   useEffect(() => {
