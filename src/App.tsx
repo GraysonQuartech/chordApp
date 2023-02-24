@@ -35,12 +35,22 @@ function App() {
     setNFS(nfs);
   };
 
-  const displayNotes = (arr: noteFretString[]) => {
+  //returns a string with the correct format for the API
+  const formatAPIreq = (arr: noteFretString[]) => {
+    //if # change to
+  };
+
+  /*
+  Displays a reverse string of the noteNames
+  Within an NFS array passed to it
+  */
+  const displayNotes = (NFSarr: noteFretString[]) => {
+    const arr = NFSarr.slice().reverse();
     let noteString = "";
     for (let i = 0; i < arr.length; i++) {
       noteString += arr[i].noteName;
       if (i < arr.length - 1 && arr[i].noteName != "") {
-        noteString += "   ";
+        noteString += ", ";
       }
     }
     console.log(noteString);
