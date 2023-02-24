@@ -5,6 +5,7 @@ import StringC from "./components/StringC";
 import Tuning from "./components/Tuning";
 import type { NoteType } from "./components/StringC";
 import myImage from "./images/fretboard.png";
+import axios from "axios";
 
 //Creates object type noteFretString template
 export type noteFretString = {
@@ -58,6 +59,17 @@ function App() {
     return apiString;
   };
 
+  const getChord = () => {
+    axios
+      .get(
+        "http://www.tofret.com/reverse-chord-finder.php?return-type=json&notes=" +
+          formatAPIreq(nFSArr)
+      )
+      .then((response) => {
+        console.log(response);
+      });
+  };
+
   /*
   Displays a reverse string of the noteNames
   Within an NFS array passed to it
@@ -108,6 +120,7 @@ function App() {
       </div>
       <div className="displayNotes">{displayNotes(nFSArr)}</div>
       <div className="displayNotes">{formatAPIreq(nFSArr)}</div>
+      <button onClick={getChord}>GET CHORD</button>
     </div>
   );
 }
