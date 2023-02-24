@@ -13,35 +13,39 @@ export type noteFretString = {
   stringNum: number;
 };
 
+const nFSArr: noteFretString[] = new Array(6).fill({
+  noteName: "",
+  fretNum: 0,
+  stringNum: 0,
+});
+
 //main component function
 function App() {
-  const [noteFretString, setNFS] = useState<noteFretString>();
   const [tuningArr, setTuningArr] = useState<number[]>([4, 11, 7, 2, 9, 4]);
-
-  // const [nFSArray, setString] = useState<null>(null); //this useState gets triggered from stringupdate
+  const [noteFretString, setNFS] = useState<noteFretString>();
 
   //receives the tuning array from tuning component
   const handleTuningClick = (tuning: number[]) => {
     setTuningArr(tuning);
   };
 
+  //receives the note fret and string, from string
   const nfsReceived = (nfs: noteFretString) => {
+    nFSArr[nfs.stringNum] = nfs;
     setNFS(nfs);
   };
 
-  //storing each string in an array here, and update the array every time a string/note is updated
-  //display that
-  //call an API with that data, and display the return
-  //useEffect()
-
-  //receives the note clicked from string componenet. ie this function called when note clicked
-  //creates and pushes new instance of stringFretNum object to the arr at string
-  //const handleNFSArray = (noteName: Note, stringNum: number, fretNum: number) => {
-
-  //nFSArray[stringNum] = {noteName, stringNum, fretNum};
-
-  //1. pass chordArr and setMyarray to child Note component, and set state
-  //};
+  const displayNotes = (arr: noteFretString[]) => {
+    let noteString = "";
+    for (let i = 0; i < arr.length; i++) {
+      noteString += arr[i].noteName;
+      if (i < arr.length - 1 && arr[i].noteName != "") {
+        noteString += "   ";
+      }
+    }
+    console.log(noteString);
+    return noteString;
+  };
 
   return (
     <div className="body">
@@ -74,7 +78,7 @@ function App() {
           })}
         </div>
       </div>
-      <div className="displayNotes">'spell chord here..'</div>
+      <div className="displayNotes">{displayNotes(nFSArr)}</div>
     </div>
   );
 }

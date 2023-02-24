@@ -16,6 +16,7 @@ interface stringProps {
 }
 
 export type NoteType =
+  | ""
   | "C"
   | "C#"
   | "D"
@@ -75,6 +76,7 @@ function StringC(props: stringProps) {
 
   //gets triggered when note updated, and passes data up to useState in APP
   useEffect(() => {
+    // if check here prevents error on NULL
     if (note) {
       props.setNFSCall({
         noteName: note,
@@ -91,6 +93,7 @@ function StringC(props: stringProps) {
         {fretArrTuned.map((noteName, index) => {
           return (
             <Note
+              key={index}
               noteName={noteName}
               color={note === noteName ? "green" : "black"}
               setNoteCall={setReceivedNote}
