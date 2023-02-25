@@ -78,10 +78,11 @@ function App() {
           Object.entries(chordData as Record<string, unknown>).map(
             ([voicingName, voicingNotes]) => {
               if (
-                voicingNotes ===
-                removeDuplicates(convertNotesToString(nFSArr)).trimEnd()
+                voicingNotes === removeDuplicates(convertNotesToString(nFSArr))
               ) {
                 console.log("YOUR CHORD: " + chordName + " " + voicingName);
+              } else {
+                console.log("its not: " + chordName + " " + voicingName);
               }
             }
           );
@@ -100,7 +101,7 @@ function App() {
         result += char;
       }
     }
-    return result;
+    return result.trimEnd();
   };
 
   //converts to notes to string.
@@ -113,7 +114,7 @@ function App() {
       noteString += " ";
       // }
     }
-    return noteString;
+    return noteString.trimEnd();
   };
 
   /*
