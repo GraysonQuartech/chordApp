@@ -36,6 +36,22 @@ function App() {
     setNFS(nfs);
   };
 
+  /*
+   *rotates a string and returns true if a rotation of it matches the other string
+   */
+  function areRotationsEqual(str1: string, str2: string): boolean {
+    if (str1.length !== str2.length) {
+      return false;
+    }
+    for (let i = 0; i < str1.length; i++) {
+      const rotatedStr = str1.slice(i) + str1.slice(0, i);
+      if (rotatedStr === str2) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   //returns a string with the correct format for the API
   /*
   To get the chords and scales for the notes:
@@ -75,14 +91,23 @@ function App() {
         for (const [chordName, chordData] of Object.entries(
           parsedResponse.chords
         )) {
-          Object.entries(chordData as Record<string, unknown>).map(
+          Object.entries(chordData as Record<string, string>).map(
             ([voicingName, voicingNotes]) => {
               if (
-                voicingNotes === removeDuplicates(convertNotesToString(nFSArr))
+                areRotationsEqual(
+                  voicingNotes,
+                  removeDuplicates(convertNotesToString(nFSArr))
+                )
               ) {
                 console.log("YOUR CHORD: " + chordName + " " + voicingName);
               } else {
                 console.log("its not: " + chordName + " " + voicingName);
+                console.log(
+                  "comparing " +
+                    voicingNotes +
+                    " TO " +
+                    removeDuplicates(convertNotesToString(nFSArr))
+                );
               }
             }
           );
@@ -96,9 +121,13 @@ function App() {
     const uniqueChars = new Set<string>();
     let result = "";
     for (const char of str) {
-      if (char === " " || !uniqueChars.has(char)) {
+      if (!uniqueChars.has(char)) {
         uniqueChars.add(char);
         result += char;
+        result = result.trimEnd();
+        if (char !== "#" && char != "b") {
+          result += " ";
+        }
       }
     }
     return result.trimEnd();
@@ -111,6 +140,7 @@ function App() {
     for (let i = 0; i < arr.length; i++) {
       noteString += arr[i].noteName;
       //if (arr[i].noteName != "") {
+      noteString.trimEnd();
       noteString += " ";
       // }
     }
