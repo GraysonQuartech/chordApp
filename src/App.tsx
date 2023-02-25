@@ -49,7 +49,7 @@ function App() {
     //loop through and update characters and assign them to string
     for (let i = 0; i < arr.length; i++) {
       apiString += arr[i].noteName;
-      if (arr[i].noteName != "" && i < arr.length - 1) {
+      if (arr[i].noteName !== "" && i < arr.length - 1) {
         apiString += "+";
       }
     }
@@ -71,17 +71,20 @@ function App() {
       )
       .then((response) => {
         parsedResponse = JSON.parse(response.request.responseText);
-        //console.log(parsedResponse);
-        console.log(parsedResponse);
 
         for (const [chordName, chordData] of Object.entries(
           parsedResponse.chords
         )) {
-          //for (const [voicingName, voicingNotes] of Object.entries(chordData)) {
-          //  console.log(voicingNotes);
-          //console.log(voicing, voicingNotes);
-          //}
-          console.log(chordData);
+          Object.entries(chordData as Record<string, unknown>).map(
+            ([voicingName, voicingNotes]) => {
+              if (
+                voicingNotes ===
+                removeDuplicates(convertNotesToString(nFSArr)).trimEnd()
+              ) {
+                console.log("YOUR CHORD: " + chordName + " " + voicingName);
+              }
+            }
+          );
         }
       });
   };
@@ -122,14 +125,12 @@ function App() {
     let noteString = "";
     for (let i = 0; i < arr.length; i++) {
       noteString += arr[i].noteName;
-      if (i < arr.length - 1 && arr[i].noteName != "") {
+      if (i < arr.length - 1 && arr[i].noteName !== "") {
         noteString += ", ";
       }
     }
     return noteString;
   };
-
-  console.log(removeDuplicates(convertNotesToString(nFSArr)));
 
   return (
     <div className="body">
@@ -163,8 +164,8 @@ function App() {
         </div>
       </div>
       <div className="displayNotes">{displayNotes(nFSArr)}</div>
-      <div className="displayNotes">{formatAPIreq(nFSArr)}</div>
       <button onClick={getChordsScales}>GET CHORD</button>
+      <div className="displayNotes"></div>
     </div>
   );
 }
