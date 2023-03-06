@@ -108,7 +108,7 @@ function App() {
               ) {
                 console.log(" ");
                 console.log("YOUR CHORD: " + chordName + " " + voicingName);
-                finalChord = chordName;
+                finalChord = chordName + " " + voicingName;
               } else {
                 console.log("its not: " + chordName + " " + voicingName);
                 console.log(
