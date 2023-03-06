@@ -20,10 +20,13 @@ const nFSArr: noteFretString[] = new Array(6).fill({
   stringNum: 0,
 });
 
+let finalChord = " ";
+
 //main component function
 function App() {
   const [tuningArr, setTuningArr] = useState<number[]>([4, 11, 7, 2, 9, 4]);
   const [noteFretString, setNFS] = useState<noteFretString>();
+  const [updatedFinalChord, setUpdatedFinalChord] = useState<string>("");
 
   //receives the tuning array from tuning component
   const handleTuningClick = (tuning: number[]) => {
@@ -103,7 +106,9 @@ function App() {
                   removeDuplicates(convertNotesToString(nFSArr))
                 )
               ) {
+                console.log(" ");
                 console.log("YOUR CHORD: " + chordName + " " + voicingName);
+                finalChord = chordName;
               } else {
                 console.log("its not: " + chordName + " " + voicingName);
                 console.log(
@@ -117,6 +122,7 @@ function App() {
           );
         }
       });
+    setUpdatedFinalChord(finalChord);
   };
 
   //receives a string and removes duplicates from it
@@ -204,6 +210,7 @@ function App() {
         </div>
       </div>
       <div className="displayNotes">{displayNotes(nFSArr)}</div>
+      <div className="displayNotes">{updatedFinalChord}</div>
       <button onClick={getChordsScales}>GET CHORD</button>
       <div className="displayNotes"></div>
     </div>
