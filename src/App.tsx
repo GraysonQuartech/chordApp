@@ -40,16 +40,20 @@ function App() {
    *rotates a string and returns true if a rotation of it matches the other string
    */
   function areRotationsEqual(str1: string, str2: string): boolean {
-    if (str1.length !== str2.length) {
+    const str1Substrings = str1.split(" ").sort();
+    const str2Substrings = str2.split(" ").sort();
+
+    if (str1Substrings.length !== str2Substrings.length) {
       return false;
     }
-    for (let i = 0; i < str1.length; i++) {
-      const rotatedStr = str1.slice(i) + str1.slice(0, i);
-      if (rotatedStr === str2) {
-        return true;
+
+    for (let i = 0; i < str1Substrings.length; i++) {
+      if (!str2Substrings.includes(str1Substrings[i])) {
+        return false;
       }
     }
-    return false;
+
+    return true;
   }
 
   //returns a string with the correct format for the API
@@ -120,6 +124,7 @@ function App() {
   const removeDuplicates = (str: string): string => {
     const uniqueChars = new Set<string>();
     let result = "";
+    let index = 0;
     for (const char of str) {
       if (!uniqueChars.has(char)) {
         uniqueChars.add(char);
@@ -128,7 +133,11 @@ function App() {
         if (char !== "#" && char != "b") {
           result += " ";
         }
+        if (str[index + 1] === "#" || str[index + 1] === "b") {
+          result = result.trimEnd();
+        }
       }
+      index++;
     }
     return result.trimEnd();
   };

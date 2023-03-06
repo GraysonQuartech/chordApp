@@ -20,28 +20,28 @@ export type NoteType =
   | "C"
   | "C#"
   | "D"
-  | "Eb"
+  | "D#"
   | "E"
   | "F"
   | "F#"
   | "G"
-  | "Ab"
+  | "G#"
   | "A"
-  | "Bb"
+  | "A#"
   | "B";
 //element = the note name   0    1     2    3     4    5    6     7    8     9    10    11
 const fretArr: NoteType[] = [
   "C",
   "C#",
   "D",
-  "Eb",
+  "D#",
   "E",
   "F",
   "F#",
   "G",
-  "Ab",
+  "G#",
   "A",
-  "Bb",
+  "A#",
   "B",
 ];
 
