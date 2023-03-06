@@ -154,10 +154,10 @@ function App() {
     let noteString = "";
     for (let i = 0; i < arr.length; i++) {
       noteString += arr[i].noteName;
-      //if (arr[i].noteName != "") {
-      noteString.trimEnd();
-      noteString += " ";
-      // }
+      if (arr[i].noteName != "") {
+        noteString.trimEnd();
+        noteString += " ";
+      }
     }
     return noteString.trimEnd();
   };

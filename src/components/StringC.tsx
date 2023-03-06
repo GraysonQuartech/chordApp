@@ -86,6 +86,17 @@ function StringC(props: stringProps) {
     /* eslint-disable react-hooks/exhaustive-deps */
   }, [note, props.stringNum]);
 
+  let color = "black";
+  const noteColor = (noteName: string) => {
+    if (note === noteName) {
+      color = "darkred";
+    } else {
+      color = "black";
+    }
+
+    return color;
+  };
+
   return (
     <div>
       <div className="button-row">
@@ -94,7 +105,7 @@ function StringC(props: stringProps) {
             <Note
               key={index}
               noteName={noteName}
-              color={note === noteName ? "green" : "black"}
+              color={noteColor(noteName)}
               setNoteCall={setReceivedNote}
             />
           );
