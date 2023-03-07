@@ -121,8 +121,8 @@ function App() {
             }
           );
         }
+        setUpdatedFinalChord(finalChord);
       });
-    setUpdatedFinalChord(finalChord);
   };
 
   //receives a string and removes duplicates from it

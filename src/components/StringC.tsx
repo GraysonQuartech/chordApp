@@ -15,6 +15,8 @@ interface stringProps {
   setNFSCall: (nfs: noteFretString) => void; //this is a setState within the parent comp
 }
 
+let alreadySelected = 0;
+
 export type NoteType =
   | ""
   | "C"
@@ -45,6 +47,7 @@ const fretArr: NoteType[] = [
   "B",
 ];
 
+let sameNoteSelected = 0;
 /*returns a rotated version of the original chromatic C scale array
   to be displayed. rotations determined by tuning set in parent componenet*/
 function rotateStringArray(array: NoteType[], rotations: number): NoteType[] {
@@ -71,6 +74,13 @@ function StringC(props: stringProps) {
   const [note, setNote] = useState<NoteType>();
   const setReceivedNote = (receivedNote: NoteType) => {
     setNote(receivedNote);
+
+    //if previous note the s
+    if (note === receivedNote) {
+      sameNoteSelected = 1;
+    } else {
+      sameNoteSelected = 0;
+    }
   };
 
   //gets triggered when note updated, and passes data up to useState in APP
@@ -89,7 +99,13 @@ function StringC(props: stringProps) {
   let color = "black";
   const noteColor = (noteName: string) => {
     if (note === noteName) {
-      color = "darkred";
+      if (sameNoteSelected === 1) {
+        color = "black";
+        console.log(sameNoteSelected);
+      } else {
+        color = "darkred";
+        console.log(sameNoteSelected);
+      }
     } else {
       color = "black";
     }
@@ -105,8 +121,8 @@ function StringC(props: stringProps) {
             <Note
               key={index}
               noteName={noteName}
-              color={noteColor(noteName)}
               setNoteCall={setReceivedNote}
+              color={noteColor(noteName)}
             />
           );
         })}
